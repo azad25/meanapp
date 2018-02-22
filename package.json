@@ -1,0 +1,29 @@
+{
+  "name": "meanauthapp",
+  "version": "1.0.0",
+  "description": "MEAN Stack Authentication App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azad25/meanapp.git"
+  },
+  "author": "Ferdous Azad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azad25/meanapp/issues"
+  },
+  "homepage": "https://github.com/azad25/meanapp#readme"
+}
