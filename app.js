@@ -2,20 +2,21 @@ const express = require ('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passpost = require('passport');
+const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
 // //db connection
 mongoose.connect(config.database, () => {
   console.log('*Connected to database --- '+config.database);
+  console.log('------------------------------');
 });
 
 const app = express();
 
 const users = require('./routes/users');
 //Port Number
-const port = 3000;
+const port = 3590;
 
 //cors middleware
 app.use(cors());
@@ -24,11 +25,18 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Body Parser Middleware
-app.use(bodyParser.json());
+
+// parse application/json
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 //Passport middleware
 app.use(passport.initialize());
-app.user(passport.session());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 
 //User route
 app.use('/users', users);

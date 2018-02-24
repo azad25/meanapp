@@ -2,18 +2,19 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const config = require('../config/database');
+const userdata = require('../models/user');
 
 //Register
 router.post('/register', (req,res,next)=>{
-    let newUser = new User({
+    let newUser = new userdata({
       name: req.body.name,
       email: req.body.email,
       username: req.body.username,
       password: req.body.password
     });
 
-    User.addUser(newUser, (err,user) => {
+    userdata.addUser(newUser, (err,user) => {
       if(err){
         res.json({
           succsess:false,
@@ -30,13 +31,52 @@ router.post('/register', (req,res,next)=>{
 
 
 //Authenticate
-router.get('/authenticate', (req,res,next)=>{
-    res.send('authenticate');
+router.post('/authenticate', (req,res,next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  userdata.getUserByUsername(username, (err, user) => {
+    if(err) throw err;
+    if(!user){
+      return res.json({
+        succsess: false,
+        msg: 'User not found'
+      });
+    }
+
+    userdata.comparePassword(password, user.password, (err, isMatch) => {
+      if(err) throw err;
+      if(isMatch){
+        const token = jwt.sign(user.toJSON(), config.secret, {
+          expiresIn: 86400 //1 day
+        });
+
+        res.json({
+          succsess: true,
+          token: 'JWT ' + token,
+          usercache: {
+            id: user._id,
+            name: user.name,
+            username: user.username,
+            email: user.email
+          }
+        });
+      }else{
+        return res.json({
+          succsess: false,
+          msg: 'Invalid Credentials'
+        });
+      }
+    });
+  });
 });
 
 //Profile
-router.get('/profile', (req,res,next)=>{
-    res.send('profile');
+router.get('/profile', passport.authenticate('jwt', {session: false}),
+  (req,res,next) => {
+    res.json({
+      user: req.user
+    });
 });
 
 //Validate
