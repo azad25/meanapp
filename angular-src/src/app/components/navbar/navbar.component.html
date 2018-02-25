@@ -16,18 +16,36 @@
               </ul>
       
               <ul class="navbar-nav">
-                  <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                  <li *ngIf="_auth.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                      <a class="nav-link" [routerLink]="['/dashboard']">
+                        <i class="fas fa-paper-plane"></i>
+                        Dashboard
+                      </a>
+                  </li>
+                  <li *ngIf="_auth.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                        <a class="nav-link" [routerLink]="['/profile']">
+                          <i class="fas fa-file-alt"></i>
+                          Profile
+                        </a>
+                  </li>
+                  <li *ngIf="!_auth.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a class="nav-link" [routerLink]="['/login']">
                       <i class="fas fa-sign-in-alt"></i>
                       Login
                     </a>
                   </li>
-                  <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                  <li *ngIf="!_auth.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                       <a class="nav-link" [routerLink]="['/register']">
                         <i class="fas fa-align-center"></i>
                         Register
                       </a>
-                    </li>
+                  </li>
+                  <li *ngIf="_auth.loggedIn()" class="nav-item">
+                    <a class="nav-link" (click)="onLogoutClick()" href="#">
+                      <i class="fas fa-align-center"></i>
+                      Logout
+                    </a>
+                 </li>
                 </ul>
             </div>
         </div>

@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
       }else{
         this._flashMessage.show('Oops! Shit Happened', {cssClass: 'alert-danger', timeOut:3000});
         this._router.navigate(['/register']);
-        console.log(JSON.stringify(data.log));
+        console.log(data);
       }
     });
   }

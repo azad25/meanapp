@@ -17,12 +17,12 @@ router.post('/register', (req,res,next)=>{
     userdata.addUser(newUser, (err,user) => {
       if(err){
         res.json({
-          succsess:false,
+          success:false,
           msg: 'Failed to register'
         });
       }else{
         res.json({
-          succsess:true,
+          success:true,
           msg: 'Registered'
         });
       }
@@ -52,7 +52,7 @@ router.post('/authenticate', (req,res,next) => {
         });
 
         res.json({
-          succsess: true,
+          success: true,
           token: 'JWT ' + token,
           usercache: {
             id: user._id,
@@ -63,7 +63,7 @@ router.post('/authenticate', (req,res,next) => {
         });
       }else{
         return res.json({
-          succsess: false,
+          success: false,
           msg: 'Invalid Credentials'
         });
       }
