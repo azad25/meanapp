@@ -1,0 +1,33 @@
+<div class="container">
+  <h2 style="margin:1em 0">Register</h2>
+
+  <flash-messages></flash-messages>
+  
+  <form (submit)="onRegisterSubmit()">
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="name">Name</span>
+          </div>
+          <input type="text" [(ngModel)]="name" class="form-control" placeholder="Your Name Here..." aria-label="name" aria-describedby="name" name="name" id="name">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="email">Email</span>
+            </div>
+            <input type="email" [(ngModel)]="email" class="form-control" placeholder="Your Email Here..." aria-label="email" aria-describedby="email" name="email" id="email">
+          </div>
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="username">Username</span>
+              </div>
+              <input type="text" [(ngModel)]="username" class="form-control" placeholder="Username" aria-label="username" aria-describedby="username" name="username" id="username">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="password">Password</span>
+                </div>
+                <input type="password" [(ngModel)]="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="password" name="password" id="password">
+              </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
